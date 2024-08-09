@@ -24,7 +24,7 @@ See also <https://www.codeproject.com/Articles/5295970/Audio-Chat-for-Quite-Good
 ```
 
 ## How to use it?
-###Chat/Messenger:
+### Chat/Messenger:
 
 ```sh
   ./audiocat -c
@@ -35,14 +35,14 @@ then enter and confirm the password also for the receiver
 (all passwords are the same).
 On the other device a chat or even a reverse shell can be started.
 
-###Reverse Shell:
+### Reverse Shell:
 
 ```sh
   ./audiocat -s
 ```
 then enter and confirm password.
 
-###File Transfer:
+### File Transfer:
 
 ```sh
   ./audiocat -f
@@ -53,7 +53,7 @@ then enter and confirm the password also for the receiver
 (all passwords are the same).
 On the other device a file transfer shall be started.
 
-###Probe:
+### Probe:
 (to check connectivity and adjust volumes if required)
 
 ```sh
@@ -65,7 +65,7 @@ Configuration settings can be adapted in folder cfg.
 
 For a detailed documentation check the Article in Code Project (the link will be provided soon).
 
-##Features:
+## Features:
 on top of the audio modem provided by minimodem and encryption provided by GPG, audiocat offers a reliable transport layer and many other features:
 
 - modes: chat, reverse-shell, file transfer (future: sniffer)
@@ -104,7 +104,7 @@ on top of the audio modem provided by minimodem and encryption provided by GPG, 
    
 - several configuration options, preamble, trailer, delays, cipher algorithm, confidence, log to file, verbose, etc.
 
-##Possible Abuses:
+## Possible Abuses:
 please don't do the following if you are not allowed (it might be illegal!):
 
 - exfiltrate data over the air to a nearby or remote computer
