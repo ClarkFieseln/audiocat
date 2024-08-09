@@ -1,0 +1,158 @@
+audiocat started: 02/08/2024, 15:41:25
+< binary data! count = 1
+< binary data! count = 2
+< [init]
+> [init_ack_shell]
+< binary data! count = 3
+< [keepalive]
+> [keepalive]
+< binary data! count = 4
+< [keepalive]
+< ack[1,1]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 5
+< binary data! count = 6
+< binary data! count = 7
+< binary data! count = 8
+> [keepalive]
+< binary data! count = 9
+< binary data! count = 10
+< [keepalive]
+> [keepalive]
+< binary data! count = 11
+< [keepalive]
+< binary data! count = 12
+< repeated_data[2,1] = pwd
+< ack[2,2]
+< [keepalive]
+< [keepalive]
+< binary data! count = 13
+< ack[3,3]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 14
+< [keepalive]
+> [keepalive]
+< [keepalive]
+< binary data! count = 15
+< binary data! count = 16
+< ack[4,4]
+> [keepalive]
+< binary data! count = 17
+< [keepalive]
+< binary data! count = 18
+< binary data! count = 19
+< binary data! count = 20
+< ack[5,5]
+> [keepalive]
+< binary data! count = 21
+< binary data! count = 22
+< binary data! count = 23
+> [keepalive]
+< binary data! count = 24
+< binary data! count = 25
+< binary data! count = 26
+< binary data! count = 27
+< binary data! count = 28
+< binary data! count = 29
+< binary data! count = 30
+< binary data! count = 31
+< binary data! count = 32
+< binary data! count = 33
+< binary data! count = 34
+> [keepalive]
+< binary data! count = 35
+> [keepalive]
+< binary data! count = 36
+< binary data! count = 37
+< binary data! count = 38
+< binary data! count = 39
+< binary data! count = 40
+< binary data! count = 41
+< binary data! count = 42
+< binary data! count = 43
+< binary data! count = 44
+< binary data! count = 45
+< binary data! count = 46
+< binary data! count = 47
+< binary data! count = 48
+> [keepalive]
+> [keepalive]
+< binary data! count = 49
+< binary data! count = 50
+< binary data! count = 51
+< binary data! count = 52
+< binary data! count = 53
+< ack[6,6]
+> [keepalive]
+< binary data! count = 54
+< binary data! count = 55
+< [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 56
+< binary data! count = 57
+< [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 58
+< binary data! count = 59
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 60
+< binary data! count = 61
+< [keepalive]
+> [keepalive]
+< binary data! count = 62
+< [keepalive]
+> [keepalive]
+< binary data! count = 63
+< [keepalive]
+> [keepalive]
+< binary data! count = 64
+< binary data! count = 65
+< [keepalive]
+> [keepalive]
+< binary data! count = 66
+< binary data! count = 67
+< [keepalive]
+> [keepalive]
+< binary data! count = 68
+< binary data! count = 69
+< [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 70
+< binary data! count = 71
+< [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 72
+< [keepalive]
+> [keepalive]
+< binary data! count = 73
+< binary data! count = 74
+< [keepalive]
+> [keepalive]
+< binary data! count = 75
+< [keepalive]
+> [keepalive]
+< [keepalive]
+> [keepalive]
+< binary data! count = 76
+< [keepalive]
