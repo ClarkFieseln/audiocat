@@ -1,4 +1,4 @@
-![plot](./audiocat/audiocat.png)
+![plot](./audiocat_clark/audiocat.png)
 
 # audiocat
 Audiocat is a command-line utility that reads and writes encrypted data across peer-to-peer audio connections, using [minimodem](https://github.com/kamalmostafa/minimodem "minimodem") and [gpg](https://gnupg.org/ "gpg").
