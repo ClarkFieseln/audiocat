@@ -1,3 +1,0 @@
-# note: remember to modify the call to minimodem --tx inside mmrx.py also!
-minimodem --tx --ascii --quiet --startbits 1 --stopbits 1.0 --sync-byte ${SYNCBYTE} ${BAUD}
-
