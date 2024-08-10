@@ -107,15 +107,15 @@ on top of the audio modem provided by minimodem and encryption provided by GPG, 
 ## Possible Abuses:
 please don't do the following if you are not allowed (it might be illegal!):
 
-- exfiltrate data over the air to a nearby or remote computer
+- exfiltrate data over the air or cable to a nearby or remote computer
 
-- remote control over the air from a nearby or remote computer
+- remote control over the air or cable from a nearby or remote computer
 
 - exfiltrate data from a computer evading classical auditing
 
   (be aware that if you do this on your employer's computer you might be infringing the law!)
   
-- "side-channel" for covert communication (e.g. to spread or inject malware),
+- use the tool as a "side-channel" for covert communication e.g. to spread or inject malware,
 
   even worse when combined with steganography (e.g. low volumes, data hidden in noise)
   
