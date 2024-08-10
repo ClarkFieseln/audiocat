@@ -1,1 +1,1 @@
-konsole -e
+gnome-terminal --geometry=120x40+100+200 --
