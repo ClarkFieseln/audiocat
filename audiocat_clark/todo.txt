@@ -42,7 +42,8 @@ General:
                         ----->  receiver     <--
           internet-PC                           | 2nd. audio interface 
                         <-----  transmitter  -->
-- poort .sh scripts to python (process or thread) to gain speed, readability, etc.
+  (to separate RX and TX devices we need to manage synch without local state files)
+- port .sh scripts to python (process or thread) to gain speed, readability, etc.
   (probably no gain, python and shell-scripts are slow -> a better option would be to implement everything e.g. in C or C++)
 - shell: interactive sessions, e.g. with calc, during remote shell are possible
          but this is not the case when calling python -> implement (move session to sub-shell of?)
