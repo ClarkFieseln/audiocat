@@ -23,30 +23,58 @@ CONFIDENCE=$(cat ${HOME}${TMP_PATH}/cfg/confidence)
 LIMIT=$(cat ${HOME}${TMP_PATH}/cfg/limit)
 TERMINAL=$(cat ${HOME}${TMP_PATH}/cfg/terminal)
 
-# create fifos
-if [ "$1" == "-s" ] || [ "$1" == "--rs" ] || [ "$1" == "--reverse-shell" ] ; then
-    PIPE_SHELL_IN="${HOME}${TMP_PATH}/tmp/pipe_shell_in"
-    PIPE_SHELL_OUT="${HOME}${TMP_PATH}/tmp/pipe_shell_out"
-    if [ -p ${PIPE_SHELL_IN} ] || [ -f ${PIPE_SHELL_IN} ]; then
-      rm ${PIPE_SHELL_IN}
+create_fifos()
+{
+    if [ "$1" == "-s" ] || [ "$1" == "--rs" ] || [ "$1" == "--reverse-shell" ] ; then
+        PIPE_SHELL_IN="${HOME}${TMP_PATH}/tmp/pipe_shell_in"
+        PIPE_SHELL_OUT="${HOME}${TMP_PATH}/tmp/pipe_shell_out"
+        if [ -p ${PIPE_SHELL_IN} ] || [ -f ${PIPE_SHELL_IN} ]; then
+          rm ${PIPE_SHELL_IN}
+        fi
+        if [ -p ${PIPE_SHELL_OUT} ] || [ -f ${PIPE_SHELL_OUT} ]; then
+          rm ${PIPE_SHELL_OUT}
+        fi
+        mkfifo ${PIPE_SHELL_IN}
+        mkfifo ${PIPE_SHELL_OUT}
+    elif [ "$1" == "-f" ] || [ "$1" == "--file" ] ; then
+        PIPE_FILE_IN="${HOME}${TMP_PATH}/tmp/pipe_file_in"
+        PIPE_FILE_OUT="${HOME}${TMP_PATH}/tmp/pipe_file_out"
+        if [ -p ${PIPE_FILE_IN} ] || [ -f ${PIPE_FILE_IN} ]; then
+          rm ${PIPE_FILE_IN}
+        fi
+        if [ -p ${PIPE_FILE_OUT} ] || [ -f ${PIPE_FILE_OUT} ]; then
+          rm ${PIPE_FILE_OUT}
+        fi
+        mkfifo ${PIPE_FILE_IN}
+        mkfifo ${PIPE_FILE_OUT}
     fi
-    if [ -p ${PIPE_SHELL_OUT} ] || [ -f ${PIPE_SHELL_OUT} ]; then
-      rm ${PIPE_SHELL_OUT}
-    fi
-    mkfifo ${PIPE_SHELL_IN}
-    mkfifo ${PIPE_SHELL_OUT}
-elif [ "$1" == "-f" ] || [ "$1" == "--file" ] ; then
-    PIPE_FILE_IN="${HOME}${TMP_PATH}/tmp/pipe_file_in"
-    PIPE_FILE_OUT="${HOME}${TMP_PATH}/tmp/pipe_file_out"
-    if [ -p ${PIPE_FILE_IN} ] || [ -f ${PIPE_FILE_IN} ]; then
-      rm ${PIPE_FILE_IN}
-    fi
-    if [ -p ${PIPE_FILE_OUT} ] || [ -f ${PIPE_FILE_OUT} ]; then
-      rm ${PIPE_FILE_OUT}
-    fi
-    mkfifo ${PIPE_FILE_IN}
-    mkfifo ${PIPE_FILE_OUT}
-fi
+}
+
+ask_password()
+{
+    while true
+    do
+        while true
+        do
+            echo -n "password: "
+            read -ers PASSWORD1
+            echo ""
+            # 2> /dev/null shall prevent showing the password if some error occurs
+            if [ ! "${PASSWORD1}" == "" ] 2> /dev/null
+            then
+                break
+            else
+                echo "Password cannot be empty!"
+            fi
+        done
+        echo -n "confirm password: "
+        read -ers PASSWORD
+        echo ""
+        # 2> /dev/null shall prevent showing the password if some error occurs
+        [ "${PASSWORD1}" == "${PASSWORD}" ] 2> /dev/null && break
+        echo "Passwords dont match!"
+    done
+}
 
 echo_help()
 {
@@ -136,24 +164,29 @@ if [ "$1" == "" ] ; then
     echo "audiocat: *** you must specify an option ***"
     echo_help
 elif [ "$1" == "-c" ] || [ "$1" == "--chat" ] ; then
-    ${TERMINAL} ./mmtx.sh &
+    ask_password
+    ${TERMINAL} ./mmtx.sh "${PASSWORD}" &
     # wait a little bit so the transmitter can initialize the state flags
     sleep 0.5    
     echo_parameters
-    source rx.src | python3 mmrx.py $1
+    source rx.src | python3 mmrx.py "${PASSWORD}" $1
 elif [ "$1" == "-f" ] || [ "$1" == "--file" ] ; then
-    ${TERMINAL} ./mmtxfile.sh ${PIPE_FILE_OUT} &
+    ask_password
+    create_fifos "$1"
+    ${TERMINAL} ./mmtxfile.sh "${PASSWORD}" &
     # wait a little bit so the transmitter can initialize the state flags
     sleep 0.5
     # track input files
     ${TERMINAL} cat ${PIPE_FILE_IN} &
     # we don't echo_parameters in -f mode
-    source rx.src | python3 mmrx.py $1
+    source rx.src | python3 mmrx.py "${PASSWORD}" $1
 elif [ "$1" == "-s" ] || [ "$1" == "--rs" ] || [ "$1" == "--reverse-shell" ] ; then
+    ask_password
+    create_fifos "$1"
     # create persistent shell to run in background with input and output pipes
     while true; do /bin/sh &> ${PIPE_SHELL_OUT}; done 0< ${PIPE_SHELL_IN} &
     echo_parameters
-    source rx.src | python3 mmrx.py $1
+    source rx.src | python3 mmrx.py "${PASSWORD}" $1
 elif [ "$1" == "-p" ] || [ "$1" == "--probe" ] ; then
     while :
     do        
@@ -168,4 +201,3 @@ elif [ "$1" == "-i" ] || [ "$1" == "--image" ] ; then
 else
     echo "audiocat: invalid option"
 fi
-
