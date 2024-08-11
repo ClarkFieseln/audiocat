@@ -29,10 +29,7 @@ See also <https://www.codeproject.com/Articles/5295970/Audio-Chat-for-Quite-Good
 ```sh
   ./audiocat -c
 ```
-a new terminal is opened for the transmitter,
-enter and confirm password,
-then enter and confirm the password also for the receiver 
-(all passwords are the same).
+enter and confirm password
 On the other device a chat or even a reverse shell can be started.
 
 ### Reverse Shell:
@@ -47,10 +44,7 @@ then enter and confirm password.
 ```sh
   ./audiocat -f
 ```
-a new terminal is opened for the transmitter,
-enter and confirm password,
-then enter and confirm the password also for the receiver 
-(all passwords are the same).
+enter and confirm password
 On the other device a file transfer shall be started.
 
 ### Probe:
