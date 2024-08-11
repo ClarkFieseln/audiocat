@@ -81,6 +81,10 @@ TX_SENDING_FILE_FILE="${HOME}${TMP_PATH}/state/tx_sending_file"
 INVALID_SEQ_NR=200
 SESSION_ESTABLISHED="false" # $(cat "${SESSION_ESTABLISHED_FILE}")
 
+# pipe file out
+###############
+PIPE_FILE_OUT="${HOME}${TMP_PATH}/tmp/pipe_file_out"
+
 # initialize state: transmitter not yet started
 echo "false" > ${TRANSMITTER_STARTED_FILE}
 echo "false" > ${SESSION_ESTABLISHED_FILE}
@@ -93,33 +97,13 @@ echo "200" > ${SEQ_TX_ACKED_FILE}
 ########
 echo "*************************************"
 echo "*** audiocat transmitter, input from:"
-echo "*** $1"
+echo "*** ${PIPE_FILE_OUT}"
 echo "*************************************"
 
-# ask for password
-##################
-while true
-do
-    while true
-    do
-        echo -n "password: "
-        read -ers PASSWORD1
-        echo ""
-        # 2> /dev/null shall prevent showing the password if some error occurs
-        if [ ! "${PASSWORD1}" == "" ] 2> /dev/null
-        then
-            break
-        else
-            echo "Password cannot be empty!"
-        fi
-    done
-    echo -n "confirm password: "
-    read -ers PASSWORD
-    echo ""
-    # 2> /dev/null shall prevent showing the password if some error occurs
-    [ "${PASSWORD1}" == "${PASSWORD}" ] 2> /dev/null && break
-    echo "Passwords dont match!"
-done
+# the first argument is the password
+####################################
+PASSWORD="$1"
+shift 1
 
 # store new state: transmitter started
 echo "true" > ${TRANSMITTER_STARTED_FILE}
@@ -180,8 +164,8 @@ seq_rx_ascii=$(printf "\x$(printf %x $seq_rx)")
 # banner 2
 ##########
 if [ "${SHOW_TX_PROMPT}" == true ] ; then
-    echo "you can now transfer files in a separate terminal, e.g. with:"
-    echo "echo \"file\" > $1"
+    echo "You can now transfer files in a separate terminal, e.g. with:"
+    echo "echo \"<absolute_path>/file\" > ${PIPE_FILE_OUT}"
 fi
 
 # main loop
@@ -194,7 +178,7 @@ do
     #       we could try to pipe to a timeout instead
     #       but killing the pipeline may cause problems due to buffering
     #       So, in file-mode the ACKs are sent by the RX process
-    read user_input_file <"$1"   
+    read user_input_file <${PIPE_FILE_OUT}
      
     # clean up possible "split-cadavers" that may still exist after transmission errors
     # this way we can continue working in this session
@@ -292,9 +276,9 @@ do
             fi            
             # last chunk?
             if [[ ${chunk_nr} -eq ${nr_splitted_files} ]] ; then
-                echo "${seq_tx_ascii}${seq_rx_ascii}[file_name]${file_name}[file_end]$(<${f} )" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+                echo "${seq_tx_ascii}${seq_rx_ascii}[file_name]${file_name}[file_end]$(<${f} )" | source gpg.src
             else
-                echo "${seq_tx_ascii}${seq_rx_ascii}[file_name]${file_name}[file]$(<${f} )" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+                echo "${seq_tx_ascii}${seq_rx_ascii}[file_name]${file_name}[file]$(<${f} )" | source gpg.src
             fi
             
             # send message with encrypted data-chunk
@@ -380,4 +364,3 @@ do
     # reset flag
     echo "false" > ${TX_SENDING_FILE_FILE}
 done # main loop
-
