@@ -13,7 +13,7 @@
     [trailer]  (text defined in trailer parameter)    
                     <seq_tx><seq_rx>[ack]
                     <seq_tx><seq_rx>[data]<input_data>
-                    <seq_tx><seq_rx>[file]<file_data>                       
+                    <seq_tx><seq_rx>[file]<file_data>                    
                     <seq_tx><seq_rx>[file_end]<file_data>                                 
                     \_______________ ___________________/
                                     V
@@ -70,7 +70,7 @@ if [ "${NEED_ACK}" == "true" ] ; then
         seq_rx=$((SEQ_RX+33))
         seq_rx_ascii=$(printf "\x$(printf %x $seq_rx)")        
         # send DATA
-        echo "${seq_tx_ascii}${seq_rx_ascii}[data]${DATA}" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+        echo "${seq_tx_ascii}${seq_rx_ascii}[data]${DATA}" | source gpg.src
         if [ "${VERBOSE}" == true ] ; then
             echo "> data[${SEQ_TX},${SEQ_RX}]"
         fi
@@ -86,4 +86,3 @@ if [ "${NEED_ACK}" == "true" ] ; then
         fi            
     fi
 fi                        
-
