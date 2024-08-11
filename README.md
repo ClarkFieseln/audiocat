@@ -3,7 +3,7 @@
 # audiocat
 Audiocat is a command-line utility for Linux that reads and writes encrypted data across peer-to-peer audio connections, using [minimodem](https://github.com/kamalmostafa/minimodem "minimodem") and [gpg](https://github.com/gpg/gnupg "gpg").
 
-It is a powerful tool that can be combined with any audio infrastructure (like PSTN, cellular network, internet, radio) to provide a secure audio tunnel.
+It is a powerful tool that can be combined with any audio infrastructure (like PSTN, cellular network, internet, radio) to provide a secure communication channel through an audio tunnel.
 
 The audio interfaces behave like data-diodes, each allowing unidirectional data transmission only, thus preventing data-leaks and malware-injection.
 
