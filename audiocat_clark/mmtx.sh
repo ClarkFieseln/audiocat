@@ -87,30 +87,10 @@ echo "****************************"
 echo "*** audiocat transmitter ***"
 echo "****************************"
 
-# ask for password
-##################
-while true
-do
-    while true
-    do
-        echo -n "password: "
-        read -ers PASSWORD1
-        echo ""
-        # 2> /dev/null shall prevent showing the password if some error occurs
-        if [ ! "${PASSWORD1}" == "" ] 2> /dev/null
-        then
-            break
-        else
-            echo "Password cannot be empty!"
-        fi
-    done
-    echo -n "confirm password: "
-    read -ers PASSWORD
-    echo ""
-    # 2> /dev/null shall prevent showing the password if some error occurs
-    [ "${PASSWORD1}" == "${PASSWORD}" ] 2> /dev/null && break
-    echo "Passwords dont match!"
-done
+# the first argument is the password
+####################################
+PASSWORD="$1"
+shift 1
 
 # store new state: transmitter started
 echo "true" > ${TRANSMITTER_STARTED_FILE}
@@ -217,7 +197,7 @@ do
                 seq_tx=$((SEQ_TX+33))
                 seq_tx_ascii=$(printf "\x$(printf %x $seq_tx)") 
                 # send ACK without data          
-                echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+                echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | source gpg.src
                 
                 # send message with encrypted data
                 if [ "${VERBOSE}" == true ] ; then
@@ -286,7 +266,7 @@ do
                 seq_rx=$((SEQ_RX+33))
                 seq_rx_ascii=$(printf "\x$(printf %x $seq_rx)")
             fi            
-            echo "${seq_tx_ascii}${seq_rx_ascii}[data]$(<${f} )" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+            echo "${seq_tx_ascii}${seq_rx_ascii}[data]$(<${f} )" | source gpg.src
             
             # send message with encrypted data-chunk
             ########################################
@@ -371,7 +351,7 @@ do
                         seq_rx=$((SEQ_RX+33))
                         seq_rx_ascii=$(printf "\x$(printf %x $seq_rx)")
                         # send ACK without data          
-                        echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+                        echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | source gpg.src
                         # send message with encrypted data
                         if [ "${VERBOSE}" == true ] ; then
                             echo "> ack[${SEQ_TX},${SEQ_RX}]"
@@ -387,4 +367,3 @@ do
         done # while retransmissions
     done # while TX data-chunks
 done # main loop
-
