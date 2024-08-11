@@ -38,7 +38,9 @@ On the other device a chat or even a reverse shell can be started.
 ```sh
   ./audiocat -s
 ```
-then enter and confirm password.
+then enter and confirm password
+
+On the other device a chat shall be started to command the remote shell.
 
 ### File Transfer:
 
