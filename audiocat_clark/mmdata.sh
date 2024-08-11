@@ -13,6 +13,7 @@
     [trailer]  (text defined in trailer parameter)    
                     <seq_tx><seq_rx>[ack]
                     <seq_tx><seq_rx>[data]<input_data>
+                    <seq_tx><seq_rx>[file]<file_data>                       
                     <seq_tx><seq_rx>[file_end]<file_data>                                 
                     \_______________ ___________________/
                                     V
