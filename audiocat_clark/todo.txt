@@ -1,12 +1,16 @@
 General:
 ########
-- enter password only once in audiocat script
+- derive more complex/secure pwd from user-pwd using a hash algorithm (but without salting!)
+  For deriving more secure passwords, key derivation functions (KDFs) like PBKDF2, bcrypt, and Argon2 are recommended. 
+  These functions are specifically designed to be computationally intensive, making brute-force attacks more difficult. 
+  They achieve this by applying the hash function multiple times (iterations) *** and using a salt *** -> can avoid this step?
 - finish PyPi project (easy: call ./audiocat <arg> from within audiocat.py which in turn shall be called with <arg>)
 - make some demo videos of communication with cables, smartphones, walkie-talkies, land line telephone (add links to project)
 - write an article for Code Project
 - provide a version file which can be read in audiocat, audiocat.py, __init__.py, setup.py, etc....in order to have a consistent version
 - add audiocat image to PyPi project
 - test with Virtual Machine
+- close all open terminals after leaving with Ctrl+C (at the moment the user has to do this himself)
 - remove:
   - TRAILER, otherwise it collides with ACK
   - delay before ACK...was needed because of TRAILER, but now we want to remove it
@@ -16,6 +20,8 @@ General:
   - DC or ground level of the connection varies with the amount of data sent? this would explain why a "constant" cyclic transmission of [keepalive] keeps this stable?
   - echos?
   - delays?
+- improvmeent:
+  additional measures like signature verification as recommended here: https://github.com/ClarkFieseln/AC4QGP/issues/2
 - investigate:
   - how to deal with system sounds
     (with 9.6 kbaud it was still possible to transmit information with ACKs even as music was played in the background, but the comm. errors increased)
@@ -42,8 +48,7 @@ General:
                         ----->  receiver     <--
           internet-PC                           | 2nd. audio interface 
                         <-----  transmitter  -->
-  (to separate RX and TX devices we need to manage synch without local state files)
-- port .sh scripts to python (process or thread) to gain speed, readability, etc.
+- poort .sh scripts to python (process or thread) to gain speed, readability, etc.
   (probably no gain, python and shell-scripts are slow -> a better option would be to implement everything e.g. in C or C++)
 - shell: interactive sessions, e.g. with calc, during remote shell are possible
          but this is not the case when calling python -> implement (move session to sub-shell of?)
@@ -86,4 +91,3 @@ mmrx.py:
 - with this file as base implement a SNIFFER (mmrxsniff.sh)
 - use regular expressions to detect damaged "-----BEGIN PGP MESSAGE-----" and "-----END PGP MESSAGE-----" and restore them
 - replace non-printable character detected in exception to data = infile.readline() instead of flushing the data received (there may be useful data inside)
-
