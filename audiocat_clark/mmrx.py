@@ -13,6 +13,7 @@ from time import sleep
 import queue
 import datetime
 import random
+import getopt
 
 
 
@@ -38,7 +39,8 @@ import random
 
 
 
-# module flags
+# module variables
+##################
 TX_SENDING = False
 SESSION_ESTABLISHED = False
 SHELL_OUTPUT_READ_TIMEOUT_SEC = 1
@@ -114,16 +116,22 @@ def main():
     TX_SENDING_FILE = False
     RX_RECEIVING_FILE = False    
     SESSION_ESTABLISHED = False
- 
+    
+    
+    # parse arguments
+    #################                    
+    if len(sys.argv) > 1:
+        if sys.argv[1] != "":
+            PASSWORD = sys.argv[1]
 
     # current configuration
     #######################  
     # reverse shell
     # can be activated with an argument or with a configuration file
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "-s" or sys.argv[1] == "--rs" or sys.argv[1] == "--reverse-shell":
+    if len(sys.argv) > 2:
+        if sys.argv[2] == "-s" or sys.argv[2] == "--rs" or sys.argv[2] == "--reverse-shell":
             REVERSE_SHELL = True
-        elif sys.argv[1] == "-f" or sys.argv[1] == "--file" or sys.argv[1] == "--file-transfer":
+        elif sys.argv[2] == "-f" or sys.argv[2] == "--file" or sys.argv[2] == "--file-transfer":
             FILE_TRANSFER = True
     else:
         f = open(HOME+TMP_PATH+"/cfg/reverse_shell", "r")
@@ -518,12 +526,10 @@ def main():
         print("*** audiocat reverse shell ***")
         print("******************************")
     elif FILE_TRANSFER:
-        print("***********************************************")
-        print("*** audiocat file transfer receiver, output to:")
-        print("*** " + PIPE_FILE_IN)
-        print("*** in a separate terminal type e.g.:")
-        print("*** cat " +  PIPE_FILE_IN + " > file_out")
-        print("***********************************************")            
+        print("******************************************************")
+        print("*** audiocat file transfer receiver,")
+        print("*** the received files can be found in folder rx_files")
+        print("******************************************************")            
     else:
         print("******************************")
         print("*** audiocat chat receiver ***")
@@ -573,19 +579,8 @@ def main():
             f.close()
             sleep(0.1)
     
-    # ask for password
-    ##################
-    while True:
-        while True:
-            PASSWORD1 = getpass("password: ")
-            if PASSWORD1 == "":
-                print("Password cannot be empty!")
-            else:
-                break
-        PASSWORD = getpass("confirm password: ")
-        if PASSWORD == PASSWORD1:
-            break
-        print("Passwords don't match!")    
+    # prompt message
+    ################      
     if REVERSE_SHELL:
         print("Reverse shell started...")
     print("Waiting for session to be established...")
@@ -987,4 +982,3 @@ def main():
 #############
 if __name__ == '__main__':
     main()
-
