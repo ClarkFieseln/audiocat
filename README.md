@@ -30,6 +30,7 @@ See also <https://www.codeproject.com/Articles/5295970/Audio-Chat-for-Quite-Good
   ./audiocat -c
 ```
 enter and confirm password
+
 On the other device a chat or even a reverse shell can be started.
 
 ### Reverse Shell:
@@ -45,6 +46,7 @@ then enter and confirm password.
   ./audiocat -f
 ```
 enter and confirm password
+
 On the other device a file transfer shall be started.
 
 ### Probe:
