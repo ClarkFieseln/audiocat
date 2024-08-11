@@ -69,7 +69,7 @@ if [ "${NEED_ACK}" == "true" ] ; then
         seq_rx=$((SEQ_RX+33))
         seq_rx_ascii=$(printf "\x$(printf %x $seq_rx)")        
         # send ACK without data          
-        echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+        echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | source gpg.src
         if [ "${VERBOSE}" == true ] ; then
             echo "> ack[${SEQ_TX},${SEQ_RX}]"
         fi
@@ -85,4 +85,3 @@ if [ "${NEED_ACK}" == "true" ] ; then
         fi            
     fi
 fi                        
-
