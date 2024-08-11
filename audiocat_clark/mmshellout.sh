@@ -119,7 +119,7 @@ do
         
         # build and encrypt data-chunk
         ##############################
-        echo "${seq_tx_ascii}${seq_rx_ascii}[data]$(<${f} )" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}     
+        echo "${seq_tx_ascii}${seq_rx_ascii}[data]$(<${f} )" | source gpg.src
            
         # send message with encrypted data-chunk
         ########################################
@@ -208,7 +208,7 @@ do
                     seq_rx=$((SEQ_RX+33))
                     seq_rx_ascii=$(printf "\x$(printf %x $seq_rx)")
                     # send ACK without data          
-                    echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | gpg --symmetric --cipher-algo ${CIPHER_ALGO} --batch --passphrase "${PASSWORD}" ${ARMOR} > ${MSGFILE}
+                    echo "${seq_tx_ascii}${seq_rx_ascii}[ack]" | source gpg.src
                     # send message with encrypted data
                     if [ "${VERBOSE}" == true ] ; then
                         echo "> ack[${SEQ_TX},${SEQ_RX}]"
@@ -223,4 +223,3 @@ do
         done # while poll ACK
     done # while retransmissions
 done # while TX data-chunks
-
