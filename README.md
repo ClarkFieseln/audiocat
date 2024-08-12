@@ -125,7 +125,7 @@ https://pypi.org/project/audiocat-clark
 
 (the link will be provided soon)
 
-## Article in GitHub
+## GitHub Repository
 
 https://github.com/ClarkFieseln/audiocat
 
