@@ -7,9 +7,7 @@ It is a powerful tool that can be combined with any audio infrastructure (like P
 
 The audio interfaces behave like data-diodes, each allowing unidirectional data transmission only, thus preventing data-leaks and malware-injection.
 
-This enables an "enhanced"-end-to-end encryption (E-E2EE) which notably increases security and privacy, especially when the end devices are completely offline (air-gapped-system).
-
-This provides an effective barrier against "legal or illegal" client-side-scanning!
+This enables an "enhanced"-end-to-end encryption (E-E2EE) which notably increases security and privacy, especially when the end devices are completely offline (air-gapped-system), providing an effective barrier against "legal or illegal" client-side-scanning!
 
 See also <https://www.codeproject.com/Articles/5295970/Audio-Chat-for-Quite-Good-Privacy-AC4QGP>
 
