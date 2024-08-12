@@ -129,7 +129,7 @@ https://pypi.org/project/audiocat-clark
 
 https://github.com/ClarkFieseln/audiocat
 
-## Youtube Demo Videos
+## YouTube Demo Videos
 
 (the link will be provided soon)
 
