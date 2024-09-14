@@ -12,7 +12,7 @@
 }
 { # try
 
-    for pid in $(ps -ef | grep "mmrx.py -" | awk '{print $2}'); 
+    for pid in $(ps -ef | grep mmrx.py | awk '{print $2}'); 
     do
         kill -9 $pid; 
     done
